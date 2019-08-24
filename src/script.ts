@@ -1,6 +1,6 @@
 interface Options {
-  trigger?: string
-  duration?: number
+  trigger?: string;
+  duration?: number;
 }
 
 export default class LiteScroll {
@@ -19,7 +19,8 @@ export default class LiteScroll {
   }
 
   private mountClickEvent() {
-    document.querySelectorAll(this.options.trigger).forEach((el) => {
+    const triggerElements = document.getElementsByClassName(this.options.trigger);
+    Array.from(triggerElements).forEach((el) => {
       el.addEventListener('click', (event) => {
         event.preventDefault();
 
@@ -37,6 +38,6 @@ export default class LiteScroll {
     return {
       top: box.top + window.pageYOffset - document.documentElement.clientTop,
       left: box.left + window.pageXOffset - document.documentElement.clientLeft
-    }
+    };
   }
 }

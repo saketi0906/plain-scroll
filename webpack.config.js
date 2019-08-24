@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = (_, argv) => {
   const common = {
-    entry: path.join(__dirname, 'src/js/script.ts'),
+    entry: path.join(__dirname, 'src/script.ts'),
     output: {
       path: path.join(__dirname, 'dist'),
       filename: 'assets/script.js'

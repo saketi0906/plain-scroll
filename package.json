@@ -4,8 +4,7 @@
     "build:dev": "webpack --mode development",
     "serve": "webpack-dev-server --mode development"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^9.6.1",
     "babel-core": "^6.26.3",
