@@ -33,6 +33,13 @@ export default class LiteScroll {
     });
   }
 
+  animate() {
+    window.scrollTo(0, window.screenTop + 10);
+    this.requestFrame = window.requestAnimationFrame(function () {
+      return this.animate();
+    });
+  }
+
   private getOffset(el: HTMLElement) {
     const box = el.getBoundingClientRect();
     return {
