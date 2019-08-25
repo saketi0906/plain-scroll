@@ -33,11 +33,24 @@ export default class LiteScroll {
     });
   }
 
-  animate() {
-    window.scrollTo(0, window.screenTop + 10);
-    this.requestFrame = window.requestAnimationFrame(function () {
-      return this.animate();
-    });
+  private animate() {
+    var timeElapsed = new Date().getTime() - this.startTime;
+    var isTimeOver = timeElapsed >= this.options.duration;
+    var move = this.calcMoveAmount(timeElapsed);
+    window.scrollTo(0, move);
+    
+    if (isTimeOver) {
+      window.cancelAnimationFrame(this.requestFrame);
+    } else {
+      this.requestFrame = window.requestAnimationFrame(function () {
+        return this.animate();
+      });
+    }
+  }
+
+  private calcMoveAmount(timeElapsed) {
+    var processingAmount = timeElapsed / this.options.duration > 1.0 ? 1.0 : timeElapsed / this.options.duration;
+    return processingAmount * this.endScrollY + this.startScrollY;
   }
 
   private getOffset(el: HTMLElement) {
