@@ -1,7 +1,22 @@
 interface Options {
   trigger?: string;
   duration?: number;
+  easing?: string | Function;
 }
+
+interface EaseFunction {
+  linear: Function;
+  easeInQuad: Function;
+  easeOutQuad: Function;
+  easeInOutQuad: Function;
+}
+
+const easeFunction = {
+  linear: (t: number) => t,
+  easeInQuad: (t: number) => t * t,
+  easeOutQuad: (t: number) => t * (2 - t),
+  easeInOutQuad: (t: number) => t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t
+};
 
 class LiteScroll {
   private options: Options;
@@ -9,12 +24,15 @@ class LiteScroll {
   private startTime: number;
   private startScrollY: number;
   private endScrollY: number;
+  private easeFunction: EaseFunction;
 
-  constructor(options: Options = {}) {
-    this.options = {
-      trigger: options.trigger ? options.trigger : '.litescroll-trigger',
-      duration: options.duration ? options.duration : 1000
-    };
+  constructor({
+    trigger = '.litescroll-trigger',
+    duration = 1000,
+    easing = 'linear'
+  }: Options = {}) {
+    this.easeFunction = easeFunction;
+    this.options = { trigger, duration, easing };
     this.mountClickEvent();
   }
 
@@ -47,7 +65,8 @@ class LiteScroll {
 
   private calcMoveAmount(timeElapsed) {
     let processingAmount = timeElapsed / this.options.duration > 1.0 ? 1.0 : timeElapsed / this.options.duration;
-    return processingAmount * this.endScrollY + this.startScrollY;
+    const easeEffect = (this.easeFunction[this.options.easing as string] as Function)(processingAmount);
+    return easeEffect * this.endScrollY + this.startScrollY;
   }
 
   private getOffset(el: HTMLElement) {
@@ -59,4 +78,4 @@ class LiteScroll {
   }
 }
 
-new LiteScroll();
+new LiteScroll({ easing: 'easeInOutQuad' });
