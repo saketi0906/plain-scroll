@@ -4,56 +4,57 @@ interface Options {
   easing?: string | Function;
 }
 
-interface EaseFunction {
+interface Ease {
   linear: Function;
-  easeInQuad: Function;
-  easeOutQuad: Function;
-  easeInOutQuad: Function;
+  easeIn: Function;
+  easeOut: Function;
+  easeInOut: Function;
 }
 
-const easeFunction = {
+const ease = {
   linear: (t: number) => t,
-  easeInQuad: (t: number) => t * t,
-  easeOutQuad: (t: number) => t * (2 - t),
-  easeInOutQuad: (t: number) => t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t
+  easeIn: (t: number) => t * t,
+  easeOut: (t: number) => t * (2 - t),
+  easeInOut: (t: number) => t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t
 };
 
 class LiteScroll {
   private options: Options;
+  private start: { position: number; time: number; };
+  private end: { position: number; };
   private requestFrame: number;
-  private startTime: number;
-  private startScrollY: number;
-  private endScrollY: number;
-  private easeFunction: EaseFunction;
+  private ease: Ease;
 
-  constructor({
-    trigger = '.litescroll-trigger',
-    duration = 1000,
-    easing = 'linear'
-  }: Options = {}) {
-    this.easeFunction = easeFunction;
+  constructor({ trigger = '.litescroll', duration = 1000, easing = 'linear' }: Options = {}) {
     this.options = { trigger, duration, easing };
-    this.mountClickEvent();
-  }
+    this.start = { position: 0, time: 0};
+    this.end = { position: 0 };
+    this.ease = ease;
 
-  private mountClickEvent() {
-    const triggerElements = document.querySelectorAll(this.options.trigger);
-    Array.from(triggerElements).forEach((el) => {
+    const elements = document.querySelectorAll(this.options.trigger);
+    Array.from(elements).forEach((el) => {
+
+      const scrollTo = document.getElementById(el.getAttribute('href').replace('#', ''));
       el.addEventListener('click', (event) => {
         event.preventDefault();
-        const scrollToEl = document.getElementById(el.getAttribute('href').replace('#', ''));
-        this.startTime = new Date().getTime();
-        this.startScrollY = window.scrollY;
-        this.endScrollY = this.getOffset(scrollToEl).top - this.startScrollY;
+        this.start.time = new Date().getTime();
+        this.start.position = window.scrollY;
+        this.end.position = this.getOffset(scrollTo).top - this.start.position;
         this.animate();
       });
+
     });
   }
 
   private animate() {
-    const timeElapsed = new Date().getTime() - this.startTime;
-    const isTimeOver = timeElapsed >= this.options.duration;
-    const move = this.calcMoveAmount(timeElapsed);
+    const elapsedTime = new Date().getTime() - this.start.time;
+    let animeProcessingRate = elapsedTime / this.options.duration;
+    animeProcessingRate = animeProcessingRate > 1.0 ? 1.0 : animeProcessingRate;
+    const isTimeOver = elapsedTime >= this.options.duration;
+
+    const easeEffect = (this.ease[this.options.easing as string] as Function)(animeProcessingRate);
+    const move = easeEffect * this.end.position + this.start.position;
+
     window.scrollTo(0, move);
 
     if (isTimeOver) {
@@ -61,12 +62,6 @@ class LiteScroll {
     } else {
       this.requestFrame = window.requestAnimationFrame(() => this.animate());
     }
-  }
-
-  private calcMoveAmount(timeElapsed) {
-    let processingAmount = timeElapsed / this.options.duration > 1.0 ? 1.0 : timeElapsed / this.options.duration;
-    const easeEffect = (this.easeFunction[this.options.easing as string] as Function)(processingAmount);
-    return easeEffect * this.endScrollY + this.startScrollY;
   }
 
   private getOffset(el: HTMLElement) {
@@ -78,4 +73,4 @@ class LiteScroll {
   }
 }
 
-new LiteScroll({ easing: 'easeInOutQuad' });
+new LiteScroll({ duration: 100, easing: 'easeInOut' });
