@@ -6,7 +6,7 @@ interface Options {
   easing?: string | Function;
 }
 
-class LiteScroll {
+export class LiteScroll {
   private options: Options;
   private start: { position: number; time: number; };
   private end: { position: number; };
@@ -34,7 +34,7 @@ class LiteScroll {
     });
   }
 
-  private animate() {
+  animate() {
     const elapsedTime = new Date().getTime() - this.start.time;
     const isTimeOver = elapsedTime >= this.options.duration;
 

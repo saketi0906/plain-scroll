@@ -2,9 +2,11 @@
   "scripts": {
     "build:prod": "webpack --mode production",
     "build:dev": "webpack --mode development",
-    "serve": "webpack-dev-server --mode development"
+    "serve": "webpack-dev-server --mode development",
+    "test": "jest"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.18",
     "autoprefixer": "^9.6.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6",
@@ -24,6 +26,7 @@
     "postcss-loader": "^2.1.5",
     "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",
+    "ts-jest": "^24.0.2",
     "ts-loader": "^4.3.0",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "tslint": "^5.18.0",
