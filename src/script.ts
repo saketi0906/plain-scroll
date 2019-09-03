@@ -6,14 +6,14 @@ interface Options {
   easing?: string | Function;
 }
 
-export class LiteScroll {
+export class PlainScroll {
   private options: Options;
   private start: { position: number; time: number; };
   private end: { position: number; };
   private requestFrame: number;
   private ease: Ease;
 
-  constructor({ trigger = '.litescroll', duration = 1000, easing = 'linear' }: Options = {}) {
+  constructor({ trigger = '.plainscroll', duration = 1000, easing = 'easeOut' }: Options = {}) {
     this.options = { trigger, duration, easing };
     this.start = { position: 0, time: 0};
     this.end = { position: 0 };
@@ -61,4 +61,4 @@ export class LiteScroll {
   }
 }
 
-new LiteScroll({ duration: 700, easing: 'easeInOut' });
+new PlainScroll({ duration: 700, easing: 'easeInOut' });

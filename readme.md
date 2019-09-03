@@ -2,31 +2,31 @@ Simple and minimal size scroll library.
 
 # Installing
 ~~~
-npm install litescroll
+npm install plainScroll
 ~~~
 
 # Usage
-LiteScroll is easy to usage. Insert the following code into your project.
+PlainScroll is easy to usage. Insert the following code into your project.
 ~~~
-import LiteScroll from 'litescroll';
+import PlainScroll from 'plainScroll';
 ~~~
-Next, create a instance. You can set options at the same time. Each default parameter has a trigger of 'litescroll' as class name to start scrolling, duration of 1000 milliseconds as time at animation, easing of 'linear' as animation effect, you can set either for 'linear', 'easeIn', 'easeOut', 'easeInOut'.
+Next, create a instance. You can set options at the same time. Each default parameter has a trigger of 'plainScroll' as class name to start scrolling, duration of 1000 milliseconds as time at animation, easing of 'easeOut' as animation effect, you can set either for 'linear', 'easeIn', 'easeOut', 'easeInOut'.
 ~~~
-new LiteScroll();
+new PlainScroll();
 
 // or set option
-new LiteScroll({
-  trigger: 'litescroll',
+new PlainScroll({
+  trigger: 'plainScroll',
   duration: 1000,
-  easing: 'linear'
+  easing: 'easeOut'
 });
 ~~~
 Finally, attach the trigger name to anchor tag, 
 prepare the element you want to scroll.
 ~~~
-<a href="#apple" class="litescroll">
+<a href="#moveto" class="plainScroll">
 
-<div id="apple"></div>
+<div id="moveto"></div>
 ~~~
 
 # Support Borwser
