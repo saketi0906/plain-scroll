@@ -6,7 +6,7 @@ interface Options {
   easing?: string | Function;
 }
 
-export class PlainScroll {
+export default class PlainScroll {
   private options: Options;
   private start: { position: number; time: number; };
   private end: { position: number; };
@@ -60,5 +60,3 @@ export class PlainScroll {
     };
   }
 }
-
-new PlainScroll({ duration: 700, easing: 'easeInOut' });
