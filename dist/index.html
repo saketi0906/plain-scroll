@@ -7,8 +7,8 @@
   <title>Document</title>
 </head>
 <body>
-  <a href="#target1" class="plainscroll">スクロール1</a>
-  <a href="#target2" class="plainscroll">スクロール2</a>
+  <a href="#target1" class="plain-scroll">スクロール1</a>
+  <a href="#target2" class="plain-scroll">スクロール2</a>
   <div id="target1" class="box"></div>
   <div id="target2" class="box"></div>
   <style>
@@ -20,7 +20,14 @@
   </style>
   <script src="./plain-scroll.js"></script>
   <script>
-    new PlainScroll()
+    new PlainScroll({
+      onScrollStart() {
+        alert('Start scroll')
+      },
+      onScrollEnd() {
+        alert('End scroll')
+      }
+    })
   </script>
 </body>
 </html>

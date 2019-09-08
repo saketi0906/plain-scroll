@@ -13,9 +13,9 @@
 
   var PlainScroll = (function () {
       function PlainScroll(_a) {
-          var _b = _a === void 0 ? {} : _a, _c = _b.trigger, trigger = _c === void 0 ? '.plainscroll' : _c, _d = _b.duration, duration = _d === void 0 ? 1000 : _d, _e = _b.easing, easing = _e === void 0 ? 'easeOut' : _e;
+          var _b = _a === void 0 ? {} : _a, _c = _b.trigger, trigger = _c === void 0 ? '.plain-scroll' : _c, _d = _b.duration, duration = _d === void 0 ? 1000 : _d, _e = _b.easing, easing = _e === void 0 ? 'easeOut' : _e, _f = _b.onScrollStart, onScrollStart = _f === void 0 ? function () { } : _f, _g = _b.onScrollEnd, onScrollEnd = _g === void 0 ? function () { } : _g;
           var _this = this;
-          this.options = { trigger: trigger, duration: duration, easing: easing };
+          this.options = { trigger: trigger, duration: duration, easing: easing, onScrollStart: onScrollStart, onScrollEnd: onScrollEnd };
           this.start = { position: 0, time: 0 };
           this.end = { position: 0 };
           this.ease = ease;
@@ -24,6 +24,7 @@
               var scrollTo = document.getElementById(el.getAttribute('href').replace('#', ''));
               el.addEventListener('click', function (event) {
                   event.preventDefault();
+                  _this.options.onScrollStart();
                   _this.start.time = new Date().getTime();
                   _this.start.position = window.scrollY;
                   _this.end.position = _this.getOffset(scrollTo).top - _this.start.position;
@@ -42,6 +43,7 @@
           window.scrollTo(0, move);
           if (isTimeOver) {
               window.cancelAnimationFrame(this.requestFrame);
+              this.options.onScrollEnd();
           }
           else {
               this.requestFrame = window.requestAnimationFrame(function () { return _this.animate(); });

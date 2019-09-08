@@ -5,7 +5,7 @@ import serve from 'rollup-plugin-serve'
 export default () => {
   if (process.env.dev) {
     return {
-      input: './src/script.ts',
+      input: './src/plain-scroll.ts',
       output: {
         file: './dist/plain-scroll.js',
         name: 'PlainScroll',
