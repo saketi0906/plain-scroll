@@ -1,23 +1,36 @@
 {
   "name": "plain-scroll",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Simple and minimal size scroll library",
-  "main": "./dist/plain-scroll.js",
+  "main": "dist/plain-scroll.js",
+  "types": "dist/plain-scroll.d.ts",
   "scripts": {
     "build:prod": "rollup -c --environment prod",
     "build:dev": "rollup -c --environment dev",
-    "server": "rollup -c --environment devServer -w",
+    "serve": "rollup -c --environment devServer -w",
     "test": "jest"
   },
+  "files": [
+    "README.md",
+    "package.json",
+    "dist",
+    "src",
+    "test",
+    "*.json",
+    "*.js"
+  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/i78s/frontend-utils.git"
+    "url": "git+https://github.com/darumock/plain-scroll.git"
   },
   "keywords": [
+    "plain scroll",
+    "plain",
     "scroll",
-    "javascript"
+    "minimal",
+    "animation"
   ],
-  "author": "darumock",
+  "author": "darumock <darumock@gmail.com> (https://github.com/darumock)",
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^24.0.18",
