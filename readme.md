@@ -1,4 +1,4 @@
-Simple and minimal size scroll library.
+Simple and lightweight size scroll library.
 
 # Installing
 ~~~
@@ -6,35 +6,49 @@ npm install plainScroll
 ~~~
 
 # Usage
-PlainScroll is easy to usage. Insert the following code into your project.
+PlainScroll is simple to usage. Insert the following code into your project.
 ~~~
 import PlainScroll from 'plainScroll';
 ~~~
-Next, create a instance. You can set options at the same time. Each default parameter has a trigger of 'plainScroll' as class name to start scrolling, duration of 1000 milliseconds as time at animation, easing of 'easeOut' as animation effect, you can set either for 'linear', 'easeIn', 'easeOut', 'easeInOut'.
+Next, create a instance.
 ~~~
 new PlainScroll();
 
 // or set option
 new PlainScroll({
-  trigger: 'plainScroll',
+  trigger: '.plain-scroll',
   duration: 1000,
   easing: 'easeOut'
+  onScrollStart: () => console.log('start'),
+  onScrollEnd: () => console.log('end')
 });
 ~~~
 Finally, attach the trigger name to anchor tag, 
 prepare the element you want to scroll.
 ~~~
-<a href="#moveto" class="plainScroll">
-
-<div id="moveto"></div>
+<a href="#to" class="plain-scroll">
+<div id="to"></div>
 ~~~
 
+# Option
+You can set options at the same time you create an instance.  
+## trigger
+Class name for starting scrolling, set to anchor tag.
+ Default set is '.plain-scroll'.
+## duration
+It is time to scroll to the destination. Default set is 1000 milliseconds.
+## easing
+Add inertia to the scroll. You can set either for 'linear', 'easeIn', 'easeOut', 'easeInOut'. Default set is 'easeOut'.
+## callback
+You can run any function at start and end of scroll.
+
 # Support Borwser
+Support for stable version in the modern browsers and Internet Explorer 11. 
 - Chrome
 - Firefox
 - Safari
-- Internet Explorer 11
 - Edge
+- Internet Explorer 11
 
 # License
 MIT @darumock

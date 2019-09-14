@@ -44,10 +44,6 @@ export default () => {
           file: 'dist/plain-scroll.min.js',
           name: 'PlainScroll',
           format: 'umd'
-        },
-        {
-          file: 'dist/plain-scroll.min.esm.js',
-          format: 'esm'
         }
       ],
       plugins: [
