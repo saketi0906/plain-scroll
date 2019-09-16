@@ -2,13 +2,17 @@ Simple and lightweight size scroll library.
 
 # Installing
 ~~~
-npm install plainScroll
+npm install plain-scroll
 ~~~
 
 # Usage
-PlainScroll is simple to usage. Insert the following code into your project.
+PlainScroll is simple to usage. If you are using a module bundler, insert the following code into your project.
 ~~~
-import PlainScroll from 'plainScroll';
+import PlainScroll from 'plain-scroll';
+~~~
+Please use plain-scroll.min.js when using with script tag.
+~~~
+<script src="plain-scroll.min.js"></script>
 ~~~
 Next, create a instance.
 ~~~
